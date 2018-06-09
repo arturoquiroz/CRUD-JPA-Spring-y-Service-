@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="${titulo}">Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous">
+</link>
+</head>
+<body>
+	<nav class="nav nav-pills flex-column flex-sm-row">
+		<a class="flex-sm-fill text-sm-center nav-link active" href="#">Active</a>
+		<a class="flex-sm-fill text-sm-center nav-link" th:href="@{/listar}">Clientes</a>
+		<a class="flex-sm-fill text-sm-center nav-link" href="#">Link</a> <a
+			class="flex-sm-fill text-sm-center nav-link disabled" href="#">Disabled</a>
+	</nav>
+	<div class="container">
+		<h1
+			class="text-secondary border border-success border-left-0 border-right-0 border-top-0"
+			th:text="${titulo}"></h1>
+		<a th:href="@{/form}">crear cliente</a>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>id</th>
+					<th>nombre</th>
+					<th>apellido</th>
+					<th>email</th>
+					<th>fecha</th>
+					<th>editar</th>
+					<th>eliminar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="cliente: ${clientes}">
+					<td th:text="${cliente.id}"></td>
+					<td th:text="${cliente.nombre}"></td>
+					<td th:text="${cliente.apellido}"></td>
+					<td th:text="${cliente.correo}"></td>
+					<td th:text="${cliente.createAt}"></td>
+					<td><a class="btn btn-primary btn-xs"
+						th:href="@{/form/} + ${cliente.id}" th:text="'Editar'"></a></td>
+					<td><a class="btn btn-danger btn-xs"
+						th:href="@{/eliminar/} + ${cliente.id}" th:text="'Eliminar'" onclick="return confirm('Estas seguro que quieres eliminar?');"></a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

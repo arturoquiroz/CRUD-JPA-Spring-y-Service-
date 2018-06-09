@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="${titulo}">Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous"></link>
+</head>
+<body>
+
+	<nav class="nav nav-pills flex-column flex-sm-row">
+		<a class="flex-sm-fill text-sm-center nav-link active" href="#">Active</a>
+		<a class="flex-sm-fill text-sm-center nav-link" th:href="@{/listar}">Clientes</a>
+		<a class="flex-sm-fill text-sm-center nav-link" href="#">Link</a> <a
+			class="flex-sm-fill text-sm-center nav-link disabled" href="#">Disabled</a>
+	</nav>
+	<div class="container">
+		<h1 th:text="${titulo}"
+			class="text-secondary border border-success border-left-0 border-right-0 border-top-0"></h1>
+
+		<div th:object="${cliente}" th:remove="tag">
+			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger"
+				role="alert">
+				<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
+
+			</ul>
+		</div>
+
+		<form th:action="@{/form}" th:object="${cliente}" method="post">
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Nombre</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{nombre}" class="form-control"
+						th:errorclass="'form-control alert-danger'" /> <small
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></small>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Apellido</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{apellido}" class="form-control"
+						th:errorclass="'form-control alert-danger'" /> <small
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></small>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Email</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{correo}" class="form-control"
+						th:errorclass="'form-control alert-danger'" /> <small
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('correo')}" th:errors="*{correo}"></small>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Fecha</label>
+				<div class="col-sm-6">
+					<input type="text" class="form-control" th:field="*{createAt}"
+						th:errorclass="'form-control alert-danger'"></input> <small
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('createAt')}" th:errors="*{createAt}"></small>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<div class="col-sm-6">
+					<input type="submit" value="Crear cliente" class="btn btn-primary" />
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-6">
+					<!-- Esta linea permite trabajar sin sesiones <input type="hidden" th:field="*{id}" /> -->
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+</body>
+</html>
